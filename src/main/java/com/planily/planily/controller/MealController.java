@@ -1,5 +1,6 @@
 package com.planily.planily.controller;
 
+import com.planily.planily.exception.MealNotFoundException;
 import com.planily.planily.model.Meal;
 import com.planily.planily.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,16 @@ public class MealController {
 
     //Get one meal
     @GetMapping("/meals/{id}")
-    public Meal getMealById(@PathVariable(value = "id") Long mealId) {
-        return mealRepository.findById(mealId);
+    public Meal getMealById(@PathVariable(value = "id") Long mealId) throws MealNotFoundException {
+        return mealRepository.findById(mealId)
+                .orElseThrow(() -> new MealNotFoundException(mealId));
     }
 
     //Update a meal
     @PutMapping("/meals/{id}")
-    public Meal updateMeal(@PathVariable(value = "id") Long mealId, @Valid @RequestBody Meal mealDetails) {
-        Meal meal = mealRepository.findById(mealId);
+    public Meal updateMeal(@PathVariable(value = "id") Long mealId, @Valid @RequestBody Meal mealDetails) throws MealNotFoundException {
+        Meal meal = mealRepository.findById(mealId)
+                .orElseThrow(() -> new MealNotFoundException(mealId));
         meal.setMealDate(mealDetails.getMealDate());
 
         Meal updatedMeal = mealRepository.save(meal);
@@ -47,8 +50,9 @@ public class MealController {
 
     //Delete a meal
     @DeleteMapping("/meals/{id}")
-    public ResponseEntity<?> deleteMeal(@PathVariable(value = "id") Long mealId) {
-        Meal meal = mealRepository.findById(mealId);
+    public ResponseEntity<?> deleteMeal(@PathVariable(value = "id") Long mealId) throws MealNotFoundException {
+        Meal meal = mealRepository.findById(mealId)
+                .orElseThrow(() -> new MealNotFoundException(mealId));
         mealRepository.delete(meal);
 
         return ResponseEntity.ok().build();

@@ -1,5 +1,6 @@
 package com.planily.planily.controller;
 
+import com.planily.planily.exception.UserNotFoundException;
 import com.planily.planily.model.User;
 import com.planily.planily.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,10 @@ public class UserController {
     }
 
     //Get single user
-    @GetMapping("/user")
-    public User getUserById(@PathVariable(value = "id") Long userId) {
-        return userRepository.findById(userId);
+    @GetMapping("/users/{id}")
+    public User getMealById(@PathVariable(value = "id") Long userId) throws UserNotFoundException {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
     }
 
 }
