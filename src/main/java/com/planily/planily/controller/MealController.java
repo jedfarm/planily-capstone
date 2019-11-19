@@ -30,14 +30,14 @@ public class MealController {
 
     //Get one meal
     @GetMapping("/meals/{id}")
-    public Meal getMealById(@PathVariable(value = "id") Long mealId) throws MealNotFoundException {
+    public Meal getMealById(@PathVariable(value = "id") long mealId) throws MealNotFoundException {
         return mealRepository.findById(mealId)
                 .orElseThrow(() -> new MealNotFoundException(mealId));
     }
 
     //Update a meal
     @PutMapping("/meals/{id}")
-    public Meal updateMeal(@PathVariable(value = "id") Long mealId, @Valid @RequestBody Meal mealDetails) throws MealNotFoundException {
+    public Meal updateMeal(@PathVariable(value = "id") long mealId, @Valid @RequestBody Meal mealDetails) throws MealNotFoundException {
         Meal meal = mealRepository.findById(mealId)
                 .orElseThrow(() -> new MealNotFoundException(mealId));
         meal.setMealDate(mealDetails.getMealDate());
@@ -50,7 +50,7 @@ public class MealController {
 
     //Delete a meal
     @DeleteMapping("/meals/{id}")
-    public ResponseEntity<?> deleteMeal(@PathVariable(value = "id") Long mealId) throws MealNotFoundException {
+    public ResponseEntity<?> deleteMeal(@PathVariable(value = "id") long mealId) throws MealNotFoundException {
         Meal meal = mealRepository.findById(mealId)
                 .orElseThrow(() -> new MealNotFoundException(mealId));
         mealRepository.delete(meal);

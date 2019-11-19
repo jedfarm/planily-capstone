@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @NotBlank
     private String username;
@@ -28,7 +28,6 @@ public class User {
 
     @NotBlank
     private String familyCode;
-
 
     public User() { }
 

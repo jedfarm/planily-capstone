@@ -29,7 +29,7 @@ public class UserController {
 
     //Get single user
     @GetMapping("/users/{id}")
-    public User getMealById(@PathVariable(value = "id") Long userId) throws UserNotFoundException {
+    public User getMealById(@PathVariable(value = "id") long userId) throws UserNotFoundException {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
     }
