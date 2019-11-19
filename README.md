@@ -19,6 +19,7 @@ Everyone will be able to suggest the meals that they would like to eat that week
 * Java
 * Spring
 * Hibernate
+* SQL
 
 ### Necessary To Learn
 
