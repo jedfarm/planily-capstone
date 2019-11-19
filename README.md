@@ -23,9 +23,10 @@ Everyone will be able to suggest the meals that they would like to eat that week
 
 ### Necessary To Learn
 
-* How to create an API with Java
-* How to host a full web app
-* CSS Grid
+* How to create an API with Java to connect the backend to React and create functionality
+* How to host a full web app in order to show the project to anyone without complicated steps of setting up the environment on their local machine
+* CSS Grid for better display and responsive design
+* Implementation of permission levels for users to be able to separate different views and functions within the app
 
 ### Project Tracker
 
