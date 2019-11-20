@@ -8,7 +8,7 @@ class App extends Component {
 
     render() {
         return (
-            <p> Hello, world!</p>
+            <header><h1>Planily</h1> </header>
     );
     }
 }
