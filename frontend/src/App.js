@@ -14,7 +14,7 @@ class App extends Component {
     }
 
     getMeals() {
-        fetch('http://localhost:8080/meals')
+        fetch('http://localhost:8080/api/meals')
             .then(res = > res.json())
             .then((data) => {
             this.setState( {meals: data } )
