@@ -19,6 +19,7 @@ class App extends Component {
                 this.setState({
                     meals: res1,
                     users: res2,
+                    isLoading: false,
                 })
             })
     }
