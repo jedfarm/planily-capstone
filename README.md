@@ -34,7 +34,22 @@ Everyone will be able to suggest the meals that they would like to eat that week
 
 ### Wireframes
 
-![alt text][logo]
+![alt text][img1]
 
-[logo]: https://raw.githubusercontent.com/kjswenso/planily-capstone/master/wireframes/View1.jpg "Wireframe View 1"
+[img1]: https://raw.githubusercontent.com/kjswenso/planily-capstone/master/wireframes/View1.jpg "Wireframe View 1"
 
+![alt text][img2] 
+
+[img2]: https://github.com/kjswenso/planily-capstone/blob/master/wireframes/View2.jpg?raw=true "Wireframe View 2"
+
+![alt text][img3]
+
+[img3]: https://github.com/kjswenso/planily-capstone/blob/master/wireframes/View3.jpg?raw=true "Wireframe View 3"
+
+![alt text][img4]
+
+[img4]: https://github.com/kjswenso/planily-capstone/blob/master/wireframes/View4.jpg?raw=true "Wireframe View 4"
+
+![alt text][img5]
+
+[img5]: https://github.com/kjswenso/planily-capstone/blob/master/wireframes/View5.jpg?raw=true "Wireframe View 5"
