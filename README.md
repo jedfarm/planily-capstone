@@ -32,3 +32,5 @@ Everyone will be able to suggest the meals that they would like to eat that week
 
 [Trello project tracker](https://trello.com/b/I8vXm8is)
 
+### Wireframes
+
