@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     //Get single user
-    @GetMapping("/users/{id}")
+    @GetMapping("/user/{id}")
     public User getMealById(@PathVariable(value = "id") long userId) throws UserNotFoundException {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
