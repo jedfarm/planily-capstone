@@ -3,12 +3,39 @@ import './App.css';
 
 class App extends Component {
 
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+            meals : []
+        }
+    }
+
+    componentDidMount() {
+    }
+
+    getMeals() {
+        fetch('http://localhost:8080/meals')
+            .then(res = > res.json())
+            .then((data) => {
+            this.setState( {meals: data } )
+        })
+    }
 
 
     render() {
         return (
-            <header><h1>Planily</h1> </header>
+            <header>
+                <h1>Planily</h1>
+                <p>Family Group</p>
+
+                <nav>
+                    <button>Home</button>
+                    <button>Calendar</button>
+                </nav>
+                <ul>
+                    <li>{this.state.meals}</li>
+                </ul>
+            </header>
     );
     }
 }

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -28,6 +30,10 @@ public class User {
 
     @NotBlank
     private String familyCode;
+
+    @OneToMany
+    @JoinColumn(name = "meal_id")
+    private List<Meal> meals = new ArrayList<>();
 
     public User() { }
 
