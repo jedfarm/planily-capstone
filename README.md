@@ -34,3 +34,7 @@ Everyone will be able to suggest the meals that they would like to eat that week
 
 ### Wireframes
 
+![alt text][logo]
+
+[logo]: https://raw.githubusercontent.com/kjswenso/planily-capstone/master/wireframes/View1.jpg "Wireframe View 1"
+
