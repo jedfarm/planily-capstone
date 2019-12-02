@@ -16,18 +16,6 @@ const TextInput = ({ label, ...props }) => {
     );
 };
 
-// // Styled components ....
-// const StyledSelect = styled.select`
-//   /** ... * /
-// `;
-//
-// const StyledErrorMessage = styled.div`
-//   /** ... * /
-// `;
-//
-// const StyledLabel = styled.label`
-//  /** ...* /
-// `;
 
 const SelectInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
@@ -59,7 +47,7 @@ const RegisterForm = () => {
                         .email('Invalid email address')
                         .required('Required'),
                     username: Yup.string()
-                        .min(6, 'Must be at least 6 characters')
+                        .min(4, 'Must be at least 6 characters')
                         .max(20, 'Must be 20 characters or less')
                         .required('Required'),
                     password: Yup.string()
@@ -77,9 +65,15 @@ const RegisterForm = () => {
                 })}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(() => {
-                    alert(JSON.stringify(values, null));
+                        fetch('http://localhost:8080/api/user', {
+                            method: 'POST',
+                            headers: {
+                                Accept: "application/json",
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(values, null)
+                        })
                     setSubmitting(false);
-                    console.log(values);
                     }, 400);
                 }}
             >
