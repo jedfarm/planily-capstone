@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './App.css';
 
 import Calendar from './components/Calendar';
+import Register from './Register'
 
 class App extends Component {
 
@@ -27,20 +28,6 @@ class App extends Component {
             })
     }
 
-    // componentDidMount() {
-    //     Promise.all([fetch('/api/meals'), fetch('/api/user')])
-    //
-    //         .then(([res1, res2]) => {
-    //             return Promise.all([res1.json(), res2.json()])
-    //         })
-    //         .then(([res1, res2]) => {
-    //             this.setState({
-    //                     meals: res1,
-    //                     users: res2,
-    //
-    //         });
-    // }
-
     render() {
 
         const {meals, isLoading} = this.state;
@@ -58,7 +45,7 @@ class App extends Component {
                     <button>Calendar</button>
                 </nav>
                <div className="Calendar">
-                   <Calendar />
+                   <Register />
                </div>
             </div>
     );
