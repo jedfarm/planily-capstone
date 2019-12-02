@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
+
+import Calendar from './components/Calendar';
 
 class App extends Component {
 
@@ -38,16 +41,6 @@ class App extends Component {
     //         });
     // }
 
-    // componentDidMount() {
-    //     this.getMeals();
-    // }
-    //
-    // getMeals() {
-    //     fetch('/api/meals')
-    //         .then(response => response.json())
-    //         .then(data => this.setState({meals: data, isLoading: false}));
-    // }
-
     render() {
 
         const {meals, isLoading} = this.state;
@@ -56,7 +49,7 @@ class App extends Component {
             return <p>Loading...</p>
         }
         return (
-            <header>
+            <div>
                 <h1>Planily</h1>
                 <p>Family Group</p>
 
@@ -64,13 +57,10 @@ class App extends Component {
                     <button>Home</button>
                     <button>Calendar</button>
                 </nav>
-                <h2>Meals</h2>
-                {meals.map(meal =>
-                <div key={meal.id}>
-                    {meal.name}
-                </div>
-                )}
-            </header>
+               <div className="Calendar">
+                   <Calendar />
+               </div>
+            </div>
     );
     }
 }
