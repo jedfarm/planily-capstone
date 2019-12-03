@@ -1,6 +1,11 @@
 import React from 'react';
 import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
+import {setSessionCookie} from "../helpers/cookies";
+
+
+
+//TODO Validate user login to database values upon submit
 
 const TextInput = ({ label, ...props }) => {
     const [field, meta] = useField(props);
@@ -33,15 +38,26 @@ const LoginForm = () => {
                   .required('Required'),
           })}
           onSubmit={(values, { setSubmitting }) => {
+                fetch('http://localhost:8080/api/user')
+                    .then(res => {
+                        const user = res.email;
+                        const pass = res.password;
+                        const email = values.email;
+                        const password = values.password;
+                        console.log(email, password);
+                        if(user === email && pass === password) {
+                            setSessionCookie({email});
+                        }
+                    })
               setTimeout(() => {
-                  fetch('http://localhost:8080/api/user', {
-                      method: 'POST',
-                      headers: {
-                          Accept: "application/json",
-                          "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify(values, null)
-                  })
+                  // fetch('http://localhost:8080/api/user', {
+                  //     method: 'POST',
+                  //     headers: {
+                  //         Accept: "application/json",
+                  //         "Content-Type": "application/json",
+                  //     },
+                  //     body: JSON.stringify(values, null)
+                  // })
                   setSubmitting(false);
               }, 400);
           }}
@@ -50,7 +66,7 @@ const LoginForm = () => {
               <TextInput label="email"
                          name="email"
                          type="email"
-                         placeholder="Email"
+                         placeholder="email"
               />
               <TextInput label="password"
                          name="password"
