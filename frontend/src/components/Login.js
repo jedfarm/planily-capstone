@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
 import {setSessionCookie} from "../helpers/cookies";
+import { useFetch } from "../helpers/hooks";
 
 
 
@@ -20,7 +21,12 @@ const TextInput = ({ label, ...props }) => {
     );
 };
 
+
+
 const LoginForm = () => {
+    const [data, loading] = useFetch('http://localhost:8080/api/user')
+
+
     return (
       <>
       <h1>Login to Account</h1>
@@ -38,26 +44,47 @@ const LoginForm = () => {
                   .required('Required'),
           })}
           onSubmit={(values, { setSubmitting }) => {
-                fetch('http://localhost:8080/api/user')
-                    .then(res => {
-                        const user = res.email;
-                        const pass = res.password;
-                        const email = values.email;
-                        const password = values.password;
-                        console.log(email, password);
-                        if(user === email && pass === password) {
-                            setSessionCookie({email});
-                        }
-                    })
+
+              //   fetch('http://localhost:8080/api/user')
+              //       .then( res => res.json())
+              //       .then( data =>
+              //           // const user = res.filter(user => user.email === values.email);
+              //           // const password = res.filter(user => user.password === values.password;
+              //
+              //           // if(user != null && password != null) {
+              //           //     setSessionCookie({user});
+              //           // }
+              // ),
+              // .then(res => {
+              //     return res.json()
+              // })
+              // .then( data => {
+              //     const user = data.filter(user => user.email === values.email);
+              //     const pass = data.filter(user => user.password === values.password);
+              //
+              //     if(user && pass ) {
+              //         setSessionCookie({user});
+              //     }}),
+
+              // fetch('http://localhost:8080/api/user', {
+              //     method: 'POST',
+              //     headers: {
+              //         Accept: "application/json",
+              //         "Content-Type": "application/json",
+              //         Authorize: "token",
+              //     },
+              //     body: JSON.stringify(values, null)
+              // })
               setTimeout(() => {
-                  // fetch('http://localhost:8080/api/user', {
-                  //     method: 'POST',
-                  //     headers: {
-                  //         Accept: "application/json",
-                  //         "Content-Type": "application/json",
-                  //     },
-                  //     body: JSON.stringify(values, null)
-                  // })
+                  const user = data.filter(user => user.email === values.email);
+                  const pass = data.filter(user => user.password === values.password);
+                  console.log(user, pass)
+
+                  if(user && pass) {
+                      setSessionCookie({user});
+                      console.log('session');
+                  }
+
                   setSubmitting(false);
               }, 400);
           }}
