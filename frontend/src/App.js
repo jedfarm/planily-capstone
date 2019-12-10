@@ -15,28 +15,41 @@ import MealsForm from './components/MealsForm'
 import MealList from './components/MealList'
 import {getSessionCookie} from "./helpers/cookies";
 
+
 const history = createBrowserHistory();
 
-const AuthenticatedRoute = ({ children, ...rest}) => (
-
-    <Route
-        {...rest}
-        render={ ({location }) =>
-            getSessionCookie()[0] === undefined ? (
-                <Redirect
-                    to={{
-                        pathname: "/login",
-                        state: {from: location}
-                    }}
-                />
-            ) : (
-                children
-            )
-        }
-    />
-)
 
 const Routes = () => {
+
+    const isUserLoggedIn = () => {
+        let isLoggedIn = false;
+        const userCookie = getSessionCookie();
+        userCookie[0] !== undefined ? isLoggedIn = true : console.log('not logged in');
+
+        /*console.log(userCookie);
+
+        userCookie ? console.log('got cookie') : console.log('cookie error');
+        userCookie ? isLoggedIn = true : isLoggedIn = false;*/
+        return isLoggedIn;
+    }
+
+    const AuthenticatedRoute = ({ props, ...rest}) => (
+
+        <Route
+            {...rest}
+            render={ ({location}) =>
+                isUserLoggedIn ? ( <Redirect
+                    to={{
+                        pathname: "/login"
+                    }}
+                /> ) : (
+                    props.children
+                )
+            }
+        />
+    )
+
+
     return (
         <div>
         <Router history={history}>
@@ -47,7 +60,6 @@ const Routes = () => {
                 <Route path="/register" >
                     <Register />
                 </Route>
-            </Switch>
                 <AuthenticatedRoute path="/calendar" >
                     <Calendar />
                 </AuthenticatedRoute>
@@ -57,6 +69,7 @@ const Routes = () => {
                 <AuthenticatedRoute path="/list" >
                     <MealList />
                 </AuthenticatedRoute>
+            </Switch>
         </Router>
     </div>
     );
