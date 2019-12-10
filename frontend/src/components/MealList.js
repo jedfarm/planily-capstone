@@ -1,16 +1,20 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {useFetch} from "../helpers/hooks";
+import { Link } from 'react-router-dom';
 
-class MealList extends Component {
+const MealList = () => {
 
-    render() {
+    const [meals] = useFetch('http://localhost:8080/api/meals')
+    console.log(meals)
 
 
         return (
             <div className="meal-list">
                 <h1>All Meals</h1>
+                <button><Link to='/add'>Add Meal</Link></button>
                 <table>
                     <tbody>
-                    {this.props.meals.map((meal) =>
+                    {meals.map((meal) =>
                         <tr key={meal.id}>
                             <td>{meal.name}</td>
                             <td>{meal.mealDate}</td>
@@ -22,6 +26,5 @@ class MealList extends Component {
             </div>
         )
     }
-}
 
 export default MealList;

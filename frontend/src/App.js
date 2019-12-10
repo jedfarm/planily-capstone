@@ -3,7 +3,8 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link,
+    Redirect
 } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import './App.css';
@@ -12,22 +13,33 @@ import Calendar from './components/Calendar/Calendar';
 import Register from './components/Register'
 import MealsForm from './components/MealsForm'
 import MealList from './components/MealList'
+import {getSessionCookie} from "./helpers/cookies";
 
 const history = createBrowserHistory();
 
+const AuthenticatedRoute = ({ children, ...rest}) => (
+
+    <Route
+        {...rest}
+        render={ ({location }) =>
+            getSessionCookie()[0] === undefined ? (
+                <Redirect
+                    to={{
+                        pathname: "/login",
+                        state: {from: location}
+                    }}
+                />
+            ) : (
+                children
+            )
+        }
+    />
+)
+
 const Routes = () => {
     return (
+        <div>
         <Router history={history}>
-            <div className="header">
-                <h1>Planily</h1>
-                 <p>Family Code</p>
-
-                 <nav>
-                     <button>Home</button>
-                     <button><Link to="/calendar">Calendar</Link></button>
-                     <button><Link to="/login">Login</Link></button>
-                 </nav>
-            </div>
             <Switch>
                 <Route path="/login" >
                     <Login />
@@ -35,24 +47,33 @@ const Routes = () => {
                 <Route path="/register" >
                     <Register />
                 </Route>
-                <Route path="/calendar" >
-                    <Calendar />
-                </Route>
-                <Route path="/add" >
-                    <MealsForm/>
-                </Route>
-                <Route path="/list" >
-                    <MealList />
-                </Route>
-                {/*<Route path="/logout" component={LogoutHandler} />*/}
-                {/*<Route path="*" component={ProtectedHandler} />*/}
             </Switch>
+                <AuthenticatedRoute path="/calendar" >
+                    <Calendar />
+                </AuthenticatedRoute>
+                <AuthenticatedRoute path="/add" >
+                    <MealsForm/>
+                </AuthenticatedRoute>
+                <AuthenticatedRoute path="/list" >
+                    <MealList />
+                </AuthenticatedRoute>
         </Router>
+    </div>
     );
 };
 
 const App = () => (
     <div className="App">
+        <div className="header">
+            <h1>Planily</h1>
+            <p>Family Code</p>
+
+            <nav>
+                <button><a href="/list">Home</a></button>
+                <button><a href="/calendar">Calendar</a></button>
+                <button><a href="/login">Login</a></button>
+            </nav>
+        </div>
         <Routes />
     </div>
 );

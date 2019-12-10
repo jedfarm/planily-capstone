@@ -2,13 +2,7 @@ import React from 'react';
 import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
 import {setSessionCookie} from "../helpers/cookies";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect
-} from "react-router-dom";
+import {Route, Redirect} from "react-router-dom";
 
 
 const TextInput = ({ label, ...props }) => {
@@ -40,7 +34,7 @@ const SelectInput = ({ label, ...props }) => {
 
 const RegisterForm = () => {
     return (
-        <>
+        <div>
             <h1>Register Account</h1>
             <Formik
                 initialValues={{
@@ -85,14 +79,12 @@ const RegisterForm = () => {
                             .then(res => {
                                 const email = values.email;
                                 if(res) {
-                                    setSessionCookie({email});
-                                    console.log('session');
-                                    //TODO Redirect to appropriate home page
-                                    {/*<Redirect to='/list' />*/}
+                                    setSessionCookie({email})
                                 }
                             });
                     setSubmitting(false);
                     }, 400);
+
                 }}
             >
                 <Form>
@@ -126,7 +118,7 @@ const RegisterForm = () => {
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
-            </>
+            </div>
     );
 };
 

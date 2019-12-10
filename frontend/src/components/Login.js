@@ -28,82 +28,81 @@ const LoginForm = () => {
 
 
     return (
-      <>
-      <h1>Login to Account</h1>
-      <Formik
-          initialValues={{
-              email: '',
-              password: '',
-          }}
-          validationSchema={Yup.object({
-              email: Yup.string()
-                  .email('Invalid email address')
-                  .required('Required'),
-              password: Yup.string()
-                  .min(6, 'Must be at least 6 characters')
-                  .required('Required'),
-          })}
-          onSubmit={(values, { setSubmitting }) => {
+        <>
+            <h1>Login to Account</h1>
+            <Formik
+                initialValues={{
+                    email: '',
+                    password: '',
+                }}
+                validationSchema={Yup.object({
+                    email: Yup.string()
+                        .email('Invalid email address')
+                        .required('Required'),
+                    password: Yup.string()
+                        .min(6, 'Must be at least 6 characters')
+                        .required('Required'),
+                })}
+                onSubmit={(values, { setSubmitting }) => {
 
-              //   fetch('http://localhost:8080/api/user')
-              //       .then( res => res.json())
-              //       .then( data =>
-              //           // const user = res.filter(user => user.email === values.email);
-              //           // const password = res.filter(user => user.password === values.password;
-              //
-              //           // if(user != null && password != null) {
-              //           //     setSessionCookie({user});
-              //           // }
-              // ),
-              // .then(res => {
-              //     return res.json()
-              // })
-              // .then( data => {
-              //     const user = data.filter(user => user.email === values.email);
-              //     const pass = data.filter(user => user.password === values.password);
-              //
-              //     if(user && pass ) {
-              //         setSessionCookie({user});
-              //     }}),
+                    //   fetch('http://localhost:8080/api/user')
+                    //       .then( res => res.json())
+                    //       .then( data =>
+                    //           // const user = res.filter(user => user.email === values.email);
+                    //           // const password = res.filter(user => user.password === values.password;
+                    //
+                    //           // if(user != null && password != null) {
+                    //           //     setSessionCookie({user});
+                    //           // }
+                    // ),
+                    // .then(res => {
+                    //     return res.json()
+                    // })
+                    // .then( data => {
+                    //     const user = data.filter(user => user.email === values.email);
+                    //     const pass = data.filter(user => user.password === values.password);
+                    //
+                    //     if(user && pass ) {
+                    //         setSessionCookie({user});
+                    //     }}),
 
-              // fetch('http://localhost:8080/api/user', {
-              //     method: 'POST',
-              //     headers: {
-              //         Accept: "application/json",
-              //         "Content-Type": "application/json",
-              //         Authorize: "token",
-              //     },
-              //     body: JSON.stringify(values, null)
-              // })
-              setTimeout(() => {
-                  const user = data.filter(user => user.email === values.email);
-                  const pass = data.filter(user => user.password === values.password);
-                  console.log(user, pass)
+                    // fetch('http://localhost:8080/api/user', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         Accept: "application/json",
+                    //         "Content-Type": "application/json",
+                    //         Authorize: "token",
+                    //     },
+                    //     body: JSON.stringify(values, null)
+                    // })
+                    setTimeout(() => {
+                        const user = data.filter(user => user.email === values.email && user.password === values.password);
+                        console.log(user)
 
-                  if(user && pass) {
-                      setSessionCookie({user});
-                      console.log('session');
-                  }
+                        if(user.length === 1) {
+                            setSessionCookie({user});
+                            console.log('session');
+                        }
 
-                  setSubmitting(false);
-              }, 400);
-          }}
-      >
-          <Form>
-              <TextInput label="email"
-                         name="email"
-                         type="email"
-                         placeholder="email"
-              />
-              <TextInput label="password"
-                         name="password"
-                         type="password"
-                         placeholder="Password"
-              />
-              <button type="submit">Submit</button>
-          </Form>
-      </Formik>
-      </>
+                        setSubmitting(false);
+                    }, 400);
+                }}
+            >
+                <Form>
+                    <TextInput label="email"
+                               name="email"
+                               type="email"
+                               placeholder="email"
+                    />
+                    <TextInput label="password"
+                               name="password"
+                               type="password"
+                               placeholder="Password"
+                    />
+                    <button type="submit">Submit</button>
+                </Form>
+            </Formik>
+        </>
     );
 }
 
