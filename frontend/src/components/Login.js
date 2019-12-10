@@ -3,6 +3,8 @@ import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
 import {setSessionCookie} from "../helpers/cookies";
 import { useFetch } from "../helpers/hooks";
+import {Link} from "react-router-dom";
+import Cookie from 'js-cookie';
 
 
 
@@ -80,7 +82,8 @@ const LoginForm = () => {
                         console.log(user)
 
                         if(user.length === 1) {
-                            setSessionCookie({user});
+                            const token = user.username;
+                            Cookie.set('token', token);
                             console.log('session');
                         }
 
@@ -102,6 +105,7 @@ const LoginForm = () => {
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>
+            <p>Don't have an account? <Link to='/register'>Register</Link></p>
         </>
     );
 }

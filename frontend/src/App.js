@@ -14,6 +14,7 @@ import Register from './components/Register'
 import MealsForm from './components/MealsForm'
 import MealList from './components/MealList'
 import {getSessionCookie} from "./helpers/cookies";
+import Cookie from 'js-cookie';
 
 
 const history = createBrowserHistory();
@@ -33,18 +34,19 @@ const Routes = () => {
         return isLoggedIn;
     }
 
-    const AuthenticatedRoute = ({ props, ...rest}) => (
+    const AuthenticatedRoute = ({ children, ...rest}) => (
 
         <Route
             {...rest}
-            render={ ({location}) =>
-                isUserLoggedIn ? ( <Redirect
+            render={ props =>
+                Cookie.get('token') ? (
+                    children
+                ) : ( <Redirect
                     to={{
-                        pathname: "/login"
+                        pathname: "/login",
+                        state: {from: props.location}
                     }}
-                /> ) : (
-                    props.children
-                )
+                /> )
             }
         />
     )
@@ -53,13 +55,13 @@ const Routes = () => {
     return (
         <div>
         <Router history={history}>
-            <Switch>
                 <Route path="/login" >
                     <Login />
                 </Route>
                 <Route path="/register" >
                     <Register />
                 </Route>
+            <Switch>
                 <AuthenticatedRoute path="/calendar" >
                     <Calendar />
                 </AuthenticatedRoute>

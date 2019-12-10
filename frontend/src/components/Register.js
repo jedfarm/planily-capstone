@@ -2,7 +2,8 @@ import React from 'react';
 import { Formik, Form, useField} from 'formik';
 import * as Yup from 'yup';
 import {setSessionCookie} from "../helpers/cookies";
-import {Route, Redirect} from "react-router-dom";
+import {Route, Redirect, Link} from "react-router-dom";
+import Cookie from 'js-cookie';
 
 
 const TextInput = ({ label, ...props }) => {
@@ -77,10 +78,10 @@ const RegisterForm = () => {
                             body: JSON.stringify(values, null)
                         })
                             .then(res => {
-                                const email = values.email;
-                                if(res) {
-                                    setSessionCookie({email})
-                                }
+                                const user = values.username;
+                                const token = {user}
+                                Cookie.set('token', token);
+                                console.log(token);
                             });
                     setSubmitting(false);
                     }, 400);
