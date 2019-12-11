@@ -1,5 +1,7 @@
 package com.planily.planily.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,7 +15,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
 
     @NotBlank
     private String username;
@@ -37,9 +39,9 @@ public class User {
 
     public User() { }
 
-    public User(String username, String email, String password, String role, String familyCode) {
-        this.username = username;
+    public User(String email, String username, String password, String role, String familyCode) {
         this.email = email;
+        this.username = username;
         this.password = password;
         this.role = role;
         this.familyCode = familyCode;
@@ -47,11 +49,11 @@ public class User {
 
 
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
